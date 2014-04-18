@@ -1,0 +1,2 @@
+redstone (lit): #ff0003
+redstone (unlit): #560600

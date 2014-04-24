@@ -1,8 +1,10 @@
 package schematic.models.blocktypes.redstone
 
-trait Direction
+sealed trait Direction
 
-trait CardinalDirection extends Direction
+sealed trait VerticalDirection extends Direction
+
+sealed trait CardinalDirection extends Direction
 
 object CardinalDirection {
     def fromByteWithNone(byte: Byte): Option[CardinalDirection] = {
@@ -18,6 +20,10 @@ object CardinalDirection {
             case _ => throw new IllegalArgumentException(s"Illegal directional state: $byte")
         }
 }
+
+case object Up extends VerticalDirection
+case object Down extends VerticalDirection
+case object Middle extends VerticalDirection
 
 case object East extends CardinalDirection
 case object West extends CardinalDirection

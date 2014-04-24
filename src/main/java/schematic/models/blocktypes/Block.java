@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javax.swing.JToolTip;
 
 import schematic.models.BlockComponent;
+import schematic.models.blocktypes.redstone.CardinalDirection;
+import schematic.models.blocktypes.redstone.VerticalDirection;
 import schematic.models.images.ImageProvider;
 import schematic.models.NameProvider;
 
@@ -506,7 +508,7 @@ public class Block {
 	 * @return true if this block is a redstone torch
 	 */
 	public boolean isRedstoneTorch() {
-		return this.type == Type.REDSTONE_TORCH || this.id == 149;   // TODO: comparator
+		return this.type == Type.REDSTONE_TORCH;
 	}
 	
 	/**
@@ -652,6 +654,11 @@ public class Block {
 	public boolean isRedstoneWire() {
 		return this.type == Type.REDSTONE_WIRE;
 	}
+
+    // TODO: get rid of this later
+    public boolean isRedstoneConnectable(CardinalDirection horizontal, VerticalDirection vertical) {
+        return false;
+    }
 	
 	/**
 	 * Checks if this block is tall grass

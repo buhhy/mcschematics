@@ -7,6 +7,7 @@ import java.util.Arrays;
 import schematic.models.blocktypes.Block;
 import schematic.models.blocktypes.RedstoneWire;
 import schematic.models.blocktypes.TripWire;
+import schematic.models.blocktypes.redstone.*;
 import schematic.models.images.ImageProvider;
 
 
@@ -297,22 +298,26 @@ public class Slice {
 						if (j != 0) {
 							Block b = this.blocks[i][j-1];
 							wireInNorth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                    b.isRedstoneConnectable(South$.MODULE$, Middle$.MODULE$));
 						}
 						if (this.blocks.length - 1 != i) {
 							Block b = this.blocks[i+1][j];
 							wireInEast = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                    b.isRedstoneConnectable(West$.MODULE$, Middle$.MODULE$));
 						}
 						if (this.blocks[i].length - 1 != j) {
 							Block b = this.blocks[i][j+1];
 							wireInSouth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                    b.isRedstoneConnectable(North$.MODULE$, Middle$.MODULE$));
 						}
 						if (i != 0) {
 							Block b = this.blocks[i-1][j];
 							wireInWest = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+									|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                    b.isRedstoneConnectable(East$.MODULE$, Middle$.MODULE$));
 						}
 						((RedstoneWire)this.blocks[i][j]).setWireType(wireInNorth, wireInEast, wireInSouth, wireInWest);
 					} else if(this.blocks[i][j].isTripwire()) {

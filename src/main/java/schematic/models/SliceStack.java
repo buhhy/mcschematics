@@ -11,6 +11,7 @@ import schematic.models.blocktypes.RedstoneWire;
 import schematic.models.blocktypes.StoneSlab;
 import schematic.models.blocktypes.TripWire;
 import schematic.models.blocktypes.WoodenSlab;
+import schematic.models.blocktypes.redstone.*;
 import schematic.models.images.ImageProvider;
 
 /**
@@ -243,22 +244,26 @@ public class SliceStack implements Iterable<Slice> {
 							if (j != 0) {
 								Block b = slice.getBlockAt(i, j - 1);
 								wireInNorth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                        b.isRedstoneConnectable(South$.MODULE$, Middle$.MODULE$));
 							}
 							if (slice.getWidth() - 1 != i) {
 								Block b = slice.getBlockAt(i + 1, j);
 								wireInEast = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                        b.isRedstoneConnectable(West$.MODULE$, Middle$.MODULE$));
 							}
 							if (slice.getHeight() - 1 != j) {
 								Block b = slice.getBlockAt(i, j + 1);
 								wireInSouth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                        b.isRedstoneConnectable(North$.MODULE$, Middle$.MODULE$));
 							}
 							if (i != 0) {
 								Block b = slice.getBlockAt(i - 1, j);
 								wireInWest = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+										|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                        b.isRedstoneConnectable(East$.MODULE$, Middle$.MODULE$));
 							}
 							
 							// upper level (only if there is a upper level and the block above is air)
@@ -267,22 +272,26 @@ public class SliceStack implements Iterable<Slice> {
 								if (j != 0 && !wireInNorth) {
 									Block b = upperSlice.getBlockAt(i, j - 1);
 									wireInNorth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(South$.MODULE$, Down$.MODULE$));
 								}
 								if (slice.getWidth() - 1 != i && !wireInEast) {
 									Block b = upperSlice.getBlockAt(i + 1, j);
 									wireInEast = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(West$.MODULE$, Down$.MODULE$));
 								}
 								if (slice.getHeight() - 1 != j && !wireInSouth) {
 									Block b = upperSlice.getBlockAt(i, j + 1);
 									wireInSouth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(North$.MODULE$, Down$.MODULE$));
 								}
 								if (i != 0 && !wireInWest) {
 									Block b = upperSlice.getBlockAt(i - 1, j);
 									wireInWest = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(East$.MODULE$, Down$.MODULE$));
 								}
 							}
 							
@@ -292,22 +301,26 @@ public class SliceStack implements Iterable<Slice> {
 								if (j != 0 && !wireInNorth && !blockBlocksWire(slice.getBlockAt(i, j - 1))) {
 									Block b = lowerSlice.getBlockAt(i, j - 1);
 									wireInNorth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(South$.MODULE$, Up$.MODULE$));
 								}
 								if (slice.getWidth() - 1 != i && !wireInEast && !blockBlocksWire(slice.getBlockAt(i + 1, j))) {
 									Block b = lowerSlice.getBlockAt(i + 1, j);
 									wireInEast = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(West$.MODULE$, Up$.MODULE$));
 								}
 								if (slice.getHeight() - 1 != j && !wireInSouth && !blockBlocksWire(slice.getBlockAt(i, j + 1))) {
 									Block b = lowerSlice.getBlockAt(i, j + 1);
 									wireInSouth = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(North$.MODULE$, Up$.MODULE$));
 								}
 								if (i != 0 && !wireInWest && !blockBlocksWire(slice.getBlockAt(i - 1, j))) {
 									Block b = lowerSlice.getBlockAt(i - 1, j);
 									wireInWest = (b.isRedstoneWire() || b.isRedstoneTorch() || b.isLever() || b.isPressurePlate() || b.isButton()
-											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate());
+											|| b.isDetectorRail() || b.isRepeater() || b.isFenceGate() ||
+                                            b.isRedstoneConnectable(East$.MODULE$, Up$.MODULE$));
 								}
 							}
 							

@@ -105,7 +105,7 @@ object Redstone {
 }
 
 object RedstoneComparator {
-    trait State {
+    sealed trait State {
         val str: String
     }
     case object Compare extends State {
@@ -129,4 +129,11 @@ class JavaRedstoneBlockAdapter(id: Short, model: Redstone) extends Block(id) {
     override def toString: String = model.toString
     override def getImage(zoom: Float): BufferedImage =
         ImageProvider.zoom(zoom, RedstoneImageProvider().getImage(model))
+
+    override def isRedstoneConnectable(
+        horizontal: CardinalDirection,
+        vertical: VerticalDirection
+    ): Boolean = {
+        true
+    }
 }
